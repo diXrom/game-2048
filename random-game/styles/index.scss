@@ -1,0 +1,62 @@
+/*========================== Typography ==============================================================*/
+$black: #000000;
+$white: #ffffff;
+$orange: #f85910;
+$mate: #1c1c1c;
+$color-main: #5fc0ff;
+$color-secondary: #3c90fe;
+
+@font-face {
+  font-family: Merriweather;
+  src: url("../assets/fonts/MerriweatherSans-Bold.ttf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: Inter;
+  src: url("../assets/fonts/Inter-Bold.ttf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: Inter;
+  src: url("../assets/fonts/Inter-Regular.ttf");
+  font-weight: 400;
+}
+/*========================== Normalize =================================================================*/
+@import "_normalize";
+/*========================== PAGE/reset/tools ==========================================================*/
+html {
+  font-size: 10px;
+}
+body {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: 100px 1fr auto;
+  grid-template-columns: 100%;
+  gap: 20px;
+
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  color: $white;
+
+  background: #000000;
+  background: linear-gradient(90deg, #000000 0%, #0f4387 40%, #5fc0ff 80%);
+}
+.container {
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+/*========================== HEADER ======================================================================*/
+@import "_header";
+/*========================== HERO ========================================================================*/
+@import "_game";
+/*========================== FOOTER ======================================================================*/
+@import "_footer";

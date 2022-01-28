@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles/index.css">
+  <script defer src="js/index.js"></script>
+  <title>2048</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header__wrapper">
+      <h1 class="header__title">2048</h1>
+      <div class="header__score">
+        Score
+        <span>1488</span>
+      </div>
+      <div class="header__best">
+        Best
+        <span>1984</span>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="container">
+      <div class="main__game game">
+        <div class="game__column">
+          <div class="game__row" data-value="0"></div>
+          <div class="game__row" data-value="1"></div>
+          <div class="game__row" data-value="2"></div>
+          <div class="game__row" data-value="3"></div>
+        </div>
+        <div class="game__column">
+          <div class="game__row" data-value="4"></div>
+          <div class="game__row" data-value="5"></div>
+          <div class="game__row" data-value="6"></div>
+          <div class="game__row" data-value="7"></div>
+        </div>
+        <div class="game__column">
+          <div class="game__row" data-value="8"></div>
+          <div class="game__row" data-value="9"></div>
+          <div class="game__row" data-value="10"></div>
+          <div class="game__row" data-value="11"></div>
+        </div>
+        <div class="game__column">
+          <div class="game__row" data-value="12"></div>
+          <div class="game__row" data-value="13"></div>
+          <div class="game__row" data-value="14"></div>
+          <div class="game__row" data-value="15"></div>
+        </div>
+      </div>
+      <div class="main__before">
+        <button class="main__btn main__btn_new-game">New Game</button>
+        <button class="main__btn main__btn_record">Records table</button>
+        <div class="main__information"><span>How to play:</span> Use your arrow keys to move the tiles. Tiles with the same number
+          merge into one when they touch. Add them up to reach 2048!</div>
+        
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__inner-copy"><span>©</span><span>2022</span><a href="https://github.com/diXrom"
+            target="_blank">github</a></div>
+        <div class="footer__inner-rss"><a href="https://rs.school/js-stage0/" target="_blank">Rolling Scopes
+            School</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

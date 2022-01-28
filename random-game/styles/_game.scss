@@ -1,0 +1,82 @@
+.main {
+  &__game {
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  &__before {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  &__btn {
+    padding: 20px 15px;
+    font-size: 20px;
+    background: $color-main;
+    border: none;
+    border-radius: 10px;
+    color: $color-secondary;
+    transition: all .3s ease-in-out;
+    &:hover{
+      background-color: $color-secondary;
+      color: $black;
+    }
+    &:active{
+      background-color: #2962ac;
+    }
+  }
+  &__information {
+    grid-column: 1/3;
+    font-size: 20px;
+    span{
+      color: $color-secondary;
+    }
+  }
+}
+
+.game {
+  display: grid;
+  width: 500px;
+  height: 500px;
+
+  grid-template-columns: repeat(4, minmax(100px, 1fr));
+  grid-template-rows: 1fr;
+  gap: 15px;
+
+  background: $color-main;
+  border: 15px solid $color-main;
+  border-radius: 10px;
+
+  &__column {
+    display: grid;
+    grid-template-columns: minmax(106.25px, 1fr);
+    grid-template-rows: repeat(4, minmax(100px, 1fr));
+    gap: 15px;
+  }
+  &__row {
+    width: 100%;
+    border-radius: 5px;
+    background-color: $color-secondary;
+    &-1 {
+      position: relative;
+    }
+  }
+}
+.ceil {
+  width: 106.25px;
+  height: 106.25px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+
+  border-radius: 5px;
+  background-color: $orange;
+
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    transform: translate3d(342%, 0, 0) ;
+  }
+}
