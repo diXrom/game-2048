@@ -10,32 +10,36 @@
     align-items: flex-start;
     gap: 20px;
   }
-  &__btn {
-    padding: 20px 15px;
-    font-size: 20px;
-    background: $color-main;
-    border: none;
-    border-radius: 10px;
-    color: $color-secondary;
-    transition: all .3s ease-in-out;
-    &:hover{
-      background-color: $color-secondary;
-      color: $black;
-    }
-    &:active{
-      background-color: #2962ac;
-    }
-  }
   &__information {
     grid-column: 1/3;
     font-size: 20px;
-    span{
-      color: $color-secondary;
+    border: 5px solid $color-secondary;
+    border-radius: 10px;
+    padding: 10px;
+    color: black;
+    span {
+      color: white;
     }
   }
 }
-
+.btn {
+  padding: 20px 15px;
+  font-size: 20px;
+  background: $color-main;
+  border: none;
+  border-radius: 10px;
+  color: $color-secondary;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  &:hover {
+    background-color: $color-secondary;
+    color: white;
+  }
+  &:active {
+    background-color: #2962ac;
+  }
+}
 .game {
+  position: relative;
   display: grid;
   width: 500px;
   height: 500px;
@@ -63,20 +67,104 @@
     }
   }
 }
-.ceil {
+.cell,
+.content {
+  position: absolute;
+
+  z-index: 5;
   width: 106.25px;
   height: 106.25px;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 50px;
 
   border-radius: 5px;
+  transition: transform 0.35s ease ;
+}
+.content {
   background-color: $orange;
-
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    transform: translate3d(342%, 0, 0) ;
+}
+.rise .content {
+  animation: rise 0.3s ease .2s;
+  animation-fill-mode: backwards;
+}
+.join .cell {
+  z-index: 10;
+ 
+}
+.join .content {
+  z-index: 15;
+  animation: join 0.3s ease;
+}
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
+@keyframes join {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.cell.col_0.row_0 {
+  transform: translate(0px, 0px);
+}
+.cell.col_0.row_1 {
+  transform: translate(121px, 0px);
+}
+.cell.col_0.row_2 {
+  transform: translate(242px, 0px);
+}
+.cell.col_0.row_3 {
+  transform: translate(363px, 0px);
+}
+.cell.col_1.row_0 {
+  transform: translate(0px, 121px);
+}
+.cell.col_1.row_1 {
+  transform: translate(121px, 121px);
+}
+.cell.col_1.row_2 {
+  transform: translate(242px, 121px);
+}
+.cell.col_1.row_3 {
+  transform: translate(363px, 121px);
+}
+.cell.col_2.row_0 {
+  transform: translate(0px, 242px);
+}
+.cell.col_2.row_1 {
+  transform: translate(121px, 242px);
+}
+.cell.col_2.row_2 {
+  transform: translate(242px, 242px);
+}
+.cell.col_2.row_3 {
+  transform: translate(363px, 242px);
+}
+.cell.col_3.row_0 {
+  transform: translate(0px, 363px);
+}
+.cell.col_3.row_1 {
+  transform: translate(121px, 363px);
+}
+.cell.col_3.row_2 {
+  transform: translate(242px, 363px);
+}
+.cell.col_3.row_3 {
+  transform: translate(363px, 363px);
+}
+
