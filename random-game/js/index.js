@@ -1,4 +1,4 @@
-/* console.log(`
+console.log(`
 1.Вёрстка, дизайн, UI +20
     - внешний вид приложения +5
     - вёрстка адаптивная. Приложения корректно отображается и отсутствует полоса прокрутки при ширине страницы от 1920рх до 768рх +5
@@ -9,14 +9,40 @@
 4.Результаты игр сохраняются в local storage. Есть таблица рекордов, в которой сохраняются результаты предыдущих 10 игр +10
 5.Анимации или звуки, или настройки игры. Баллы начисляются за любой из перечисленных пунктов +10
 6.Высокое качество реализации игры +5
-`); */
-let dataArr, flag = false;
+`);
+
 function startGame() {
     const btnNewGame = document.querySelector('.btn_new-game'),
+        btnOverGame = document.querySelector('.btn_end-game'),
         gameContainer = document.querySelector('.game'),
+        gameOver = document.querySelector('.end-game'),
         score = document.querySelector('.header__score span'),
-        btnRecord = document.querySelector('.btn_record'),
-        rows = document.querySelectorAll('.game__row');
+        record = document.querySelector('.header__best span'),
+        tableScore = document.querySelector('.record'),
+        btnRecord = document.querySelector('.btn_record');
+
+    let dataArr, tableArr = [], flag = false, counter = 0;
+
+    const scoreUpdate = (num) => {
+        score.innerHTML = +score.innerHTML + num;
+        if (+score.innerHTML > +record.innerHTML) {
+            record.innerHTML = score.innerHTML;
+            localStorage.setItem('record', record.innerHTML);
+        }
+        score.parentElement.classList.add('update');
+        setTimeout(() => {
+            score.parentElement.classList.remove('update');
+        }, 200)
+    }
+    const showTable = () => tableScore.classList.toggle('show');
+    const createTableList = () => {
+        tableArr.forEach((score, i) => {
+            const list = document.createElement('div');
+            list.classList.add('record__text');
+            list.innerHTML = `<span>${i + 1}.</span>${score} score`;
+            tableScore.append(list);
+        });
+    }
 
     const randomNumInRange = (min, max) => Math.floor(min + Math.random() * (max + 1 - min));
     const getCells = (col, row) => document.querySelectorAll(`.col_${col}.row_${row}`);
@@ -71,8 +97,50 @@ function startGame() {
             cells.forEach(cell => cell.classList.remove(`col_${col}`, `row_${row}`));
             cells.forEach(cell => cell.classList.add(`col_${preCol}`, `row_${preRow}`));
             createCell(preCol, preRow, dataArr[preCol][preRow], 'join')
+            scoreUpdate(dataArr[preCol][preRow]);
             flag = true;
         }
+    }
+    const loadGame = () => {
+        dataArr = JSON.parse(localStorage.getItem('dataArr'));
+        score.innerHTML = localStorage.getItem('score');
+        dataArr.forEach((item, col) => item.forEach((i, row) => {
+            if (i == 0) return;
+            createCell(col, row, dataArr[col][row]);
+        }));
+        document.addEventListener('keydown', moveUp);
+        document.addEventListener('keydown', moveDown);
+        document.addEventListener('keydown', moveLeft);
+        document.addEventListener('keydown', moveRight);
+    }
+    const startNewGame = () => {
+        dataArr = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        document.querySelectorAll('.cell').forEach(cell => cell.remove());
+        gameOver.classList.remove('over');
+        document.addEventListener('keydown', moveUp);
+        document.addEventListener('keydown', moveDown);
+        document.addEventListener('keydown', moveLeft);
+        document.addEventListener('keydown', moveRight);
+        localStorage.removeItem('dataArr')
+        localStorage.removeItem('score')
+        score.innerHTML = 0;
+        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
+        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
+    }
+    const endGame = () => {
+        if (!flag && dataArr.flatMap(item => item).filter(item => item > 0).length == 16) {
+            counter++;
+            if (counter < 2) return;
+            counter = 0;
+            gameOver.classList.add('over');
+            document.removeEventListener('keydown', moveUp);
+            document.removeEventListener('keydown', moveDown);
+            document.removeEventListener('keydown', moveLeft);
+            document.removeEventListener('keydown', moveRight);
+        }
+        if (!flag) return;
+        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
+        flag = false;
     }
     const moveUp = (e) => {
         if (e.code !== 'ArrowUp') return
@@ -89,9 +157,7 @@ function startGame() {
         for (let col = 3; col >= 1; col--) {
             dataArr.forEach((i, row) => moveCell(col, row, (col - 1), row))
         }
-        if (!flag) return;
-        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
-        flag = false;
+        endGame();
     }
     const moveDown = (e) => {
         if (e.code !== 'ArrowDown') return
@@ -108,9 +174,7 @@ function startGame() {
         for (let col = 0; col <= 2; col++) {
             dataArr.forEach((i, row) => moveCell(col, row, (col + 1), row))
         }
-        if (!flag) return;
-        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
-        flag = false;
+        endGame();
     }
     const moveLeft = (e) => {
         if (e.code !== 'ArrowLeft') return
@@ -127,9 +191,7 @@ function startGame() {
         dataArr.forEach((i, col) => {
             for (let row = 3; row >= 1; row--) moveCell(col, row, col, (row - 1))
         })
-        if (!flag) return;
-        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
-        flag = false;
+        endGame();
     }
     const moveRight = (e) => {
         if (e.code !== 'ArrowRight') return
@@ -146,26 +208,29 @@ function startGame() {
         dataArr.forEach((i, col) => {
             for (let row = 0; row <= 2; row++) moveCell(col, row, col, (row + 1))
         })
-        if (!flag) return;
-        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
-        flag = false;
+        endGame();
     }
-    const startNewGame = () => {
-        dataArr =
-            [[0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]];
-        document.querySelectorAll('.cell').forEach(cell => cell.remove());
-        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
-        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
-        console.clear()
-    }
-    startNewGame();
+
     btnNewGame.addEventListener('click', startNewGame);
-    document.addEventListener('keydown', moveUp);
-    document.addEventListener('keydown', moveDown);
-    document.addEventListener('keydown', moveLeft);
-    document.addEventListener('keydown', moveRight);
+    btnOverGame.addEventListener('click', startNewGame);
+    btnRecord.addEventListener('click', showTable);
+    window.addEventListener('unload', () => {
+        localStorage.setItem('dataArr', JSON.stringify(dataArr));
+        localStorage.setItem('score', score.innerHTML);
+        if(score.innerHTML==0) return;
+        if (tableArr.length > 9) tableArr.pull()
+        tableArr.push(+score.innerHTML);
+        tableArr.sort((a, b) => b - a);
+        localStorage.setItem('table', JSON.stringify(tableArr));
+    })
+    if (localStorage.getItem('record')) {
+        record.innerHTML = localStorage.getItem('record');
+    }
+    if (localStorage.getItem('table')) {
+         tableArr = JSON.parse(localStorage.getItem('table'));
+    }
+    if (localStorage.getItem('dataArr')) loadGame()
+    else startNewGame();
+    createTableList();
 }
 startGame();

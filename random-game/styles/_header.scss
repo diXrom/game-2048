@@ -20,6 +20,7 @@
     padding: 0 20px;
 
     font-size: 18px;
+    font-weight: 600;
 
     color: $color-secondary;
     background-color: $color-main;
@@ -34,5 +35,19 @@
   }
   &__best {
     margin-left: 10px;
+  }
+}
+.header__score.update{
+  animation: update .3s ease-in-out;
+}
+@keyframes update {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }
