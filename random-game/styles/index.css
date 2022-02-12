@@ -613,10 +613,10 @@ body {
           justify-content: center;
   font-size: 50px;
   border-radius: 5px;
-  -webkit-transition: -webkit-transform 0.35s ease;
-  transition: -webkit-transform 0.35s ease;
-  transition: transform 0.35s ease;
-  transition: transform 0.35s ease, -webkit-transform 0.35s ease;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
 .content {
@@ -924,3 +924,4 @@ body {
 .footer__inner-rss a:hover {
   color: #000000;
 }
+/*# sourceMappingURL=index.css.map */
