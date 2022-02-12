@@ -114,7 +114,7 @@ function startGame() {
         document.addEventListener('keydown', moveRight);
     }
     const startNewGame = () => {
-        dataArr = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        dataArr = [[2, 0, 0, 0], [2, 0, 0, 0], [4, 0, 0, 0], [2, 0, 0, 0]];
         document.querySelectorAll('.cell').forEach(cell => cell.remove());
         gameOver.classList.remove('over');
         document.addEventListener('keydown', moveUp);
@@ -124,8 +124,8 @@ function startGame() {
         localStorage.removeItem('dataArr')
         localStorage.removeItem('score')
         score.innerHTML = 0;
-        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
-        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
+        /*        createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3));
+               createRandomCell(randomNumInRange(0, 3), randomNumInRange(0, 3)); */
     }
     const endGame = () => {
         if (!flag && dataArr.flatMap(item => item).filter(item => item > 0).length == 16) {
@@ -147,14 +147,11 @@ function startGame() {
         cleanCells();
         for (let col = 1; col <= 3; col++) {
             dataArr.forEach((i, row) => moveCell(col, row, (col - 1), row))
-        }
-        for (let col = 1; col <= 3; col++) {
             dataArr.forEach((i, row) => moveCell(col, row, (col - 1), row))
-        }
-        for (let col = 1; col <= 3; col++) {
             dataArr.forEach((i, row) => joinCell(col, row, (col - 1), row))
         }
         for (let col = 3; col >= 1; col--) {
+            dataArr.forEach((i, row) => moveCell(col, row, (col - 1), row))
             dataArr.forEach((i, row) => moveCell(col, row, (col - 1), row))
         }
         endGame();
@@ -164,14 +161,11 @@ function startGame() {
         cleanCells();
         for (let col = 2; col >= 0; col--) {
             dataArr.forEach((i, row) => moveCell(col, row, (col + 1), row))
-        }
-        for (let col = 2; col >= 0; col--) {
             dataArr.forEach((i, row) => moveCell(col, row, (col + 1), row))
-        }
-        for (let col = 2; col >= 0; col--) {
             dataArr.forEach((i, row) => joinCell(col, row, (col + 1), row))
         }
         for (let col = 0; col <= 2; col++) {
+            dataArr.forEach((i, row) => moveCell(col, row, (col + 1), row))
             dataArr.forEach((i, row) => moveCell(col, row, (col + 1), row))
         }
         endGame();
@@ -181,14 +175,11 @@ function startGame() {
         cleanCells();
         dataArr.forEach((i, col) => {
             for (let row = 1; row <= 3; row++) moveCell(col, row, col, (row - 1))
-        })
-        dataArr.forEach((i, col) => {
             for (let row = 1; row <= 3; row++) moveCell(col, row, col, (row - 1))
-        })
-        dataArr.forEach((i, col) => {
             for (let row = 1; row <= 3; row++) joinCell(col, row, col, (row - 1))
         })
         dataArr.forEach((i, col) => {
+            for (let row = 3; row >= 1; row--) moveCell(col, row, col, (row - 1))
             for (let row = 3; row >= 1; row--) moveCell(col, row, col, (row - 1))
         })
         endGame();
@@ -198,14 +189,11 @@ function startGame() {
         cleanCells();
         dataArr.forEach((i, col) => {
             for (let row = 2; row >= 0; row--) moveCell(col, row, col, (row + 1))
-        })
-        dataArr.forEach((i, col) => {
             for (let row = 2; row >= 0; row--) moveCell(col, row, col, (row + 1))
-        })
-        dataArr.forEach((i, col) => {
             for (let row = 2; row >= 0; row--) joinCell(col, row, col, (row + 1))
         })
         dataArr.forEach((i, col) => {
+            for (let row = 0; row <= 2; row++) moveCell(col, row, col, (row + 1))
             for (let row = 0; row <= 2; row++) moveCell(col, row, col, (row + 1))
         })
         endGame();
@@ -217,7 +205,7 @@ function startGame() {
     window.addEventListener('unload', () => {
         localStorage.setItem('dataArr', JSON.stringify(dataArr));
         localStorage.setItem('score', score.innerHTML);
-        if(score.innerHTML==0) return;
+        if (score.innerHTML == 0) return;
         if (tableArr.length > 9) tableArr.pull()
         tableArr.push(+score.innerHTML);
         tableArr.sort((a, b) => b - a);
@@ -227,7 +215,7 @@ function startGame() {
         record.innerHTML = localStorage.getItem('record');
     }
     if (localStorage.getItem('table')) {
-         tableArr = JSON.parse(localStorage.getItem('table'));
+        tableArr = JSON.parse(localStorage.getItem('table'));
     }
     if (localStorage.getItem('dataArr')) loadGame()
     else startNewGame();
