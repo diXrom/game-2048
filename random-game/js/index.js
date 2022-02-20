@@ -28,11 +28,10 @@ function startGame() {
         if (+score.innerHTML > +record.innerHTML) {
             record.innerHTML = score.innerHTML;
             localStorage.setItem('record', record.innerHTML);
+
         }
         score.parentElement.classList.add('update');
-        setTimeout(() => {
-            score.parentElement.classList.remove('update');
-        }, 200)
+       
     }
     const showTable = () => tableScore.classList.toggle('show');
     const createTableList = () => {
@@ -50,6 +49,7 @@ function startGame() {
         const arrCell = Array.from(document.querySelectorAll('.cell'));
         arrCell.forEach(cell => cell.classList.remove('rise'));
         arrCell.forEach(cell => cell.classList.remove('join'));
+        score.parentElement.classList.remove('update');
         dataArr.forEach((item, col) => item.forEach((item, row) => {
             getCells(col, row).forEach(item => {
                 if (item.dataset.value != dataArr[col][row]) {
@@ -211,7 +211,7 @@ function startGame() {
             for (let row = 2; row >= 0; row--) joinCell(col, row, col, (row + 1))
         })
         dataArr.forEach((i, col) => {
-            for (let row = 2; row >= 0; row--) joinCell(col, row, col, (row + 1))
+            for (let row = 2; row >= 0; row--) moveCell(col, row, col, (row + 1))
         })
         dataArr.forEach((i, col) => {
             for (let row = 2; row >= 0; row--) joinCell(col, row, col, (row + 1))

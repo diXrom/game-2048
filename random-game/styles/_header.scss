@@ -38,7 +38,7 @@
   }
 }
 .header__score.update{
-  animation: update .3s ease-in-out;
+  animation: update .3s ease-in-out forwards;
 }
 @keyframes update {
   0% {

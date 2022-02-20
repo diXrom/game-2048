@@ -379,8 +379,8 @@ body {
 }
 
 .header__score.update {
-  -webkit-animation: update .3s ease-in-out;
-          animation: update .3s ease-in-out;
+  -webkit-animation: update .3s ease-in-out forwards;
+          animation: update .3s ease-in-out forwards;
 }
 
 @-webkit-keyframes update {
